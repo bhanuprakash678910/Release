@@ -1,0 +1,17 @@
+---
+ - hosts: localhost     
+   become: yes
+   tasks:
+   - name: stop c1
+     command: docker stop c1
+     ignore_errors: yes
+   - name: remove c1
+     command: docker rm c1
+     ignore_errors: yes
+   - name: docker image removeal
+     command: docker rmi demo
+     ignore_errors: yes
+   - name: docker image build
+     command: docker build -t demo .
+   - name: run the container
+     command: docker run -d -p 8085:8080 --name c1 demo
